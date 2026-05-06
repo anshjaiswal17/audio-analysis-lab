@@ -11,7 +11,7 @@ import base64
 import os
 
 # Load trained model
-model = joblib.load("C:/Users/atma9/Downloads/audio_model.pkl")
+model = joblib.load("audio_model.pkl")
 
 
 app = Flask(__name__)
