@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 import io
 import base64
 import os
+import tempfile
+
 
 # Load trained model
 model = joblib.load("audio_model.pkl")
@@ -278,12 +280,12 @@ def index():
 def analyze():
     try:
         file = request.files['audio']
-        path = 'uploads/temp.wav'
-        file.save(path)
 
-        y, sr = librosa.load(path, sr=22050)
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp:
+            file.save(temp.name)
+            y, sr = librosa.load(temp.name, sr=22050)
+
         analyzer = AudioAnalyzer(y, sr)
-
         return jsonify({
             'visualizations': {
                 'waveform': analyzer.get_waveform(),
