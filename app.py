@@ -1,3 +1,5 @@
+import os
+os.environ["NUMBA_DISABLE_JIT"] = "1"
 import joblib
 from flask import Flask, render_template_string, request, jsonify
 import librosa
