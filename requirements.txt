@@ -9,6 +9,3 @@ scipy==1.11.4
 soundfile==0.12.1
 numba==0.58.1
 llvmlite==0.41.1
-Cython==0.29.36
-setuptools==69.5.1
-wheel==0.43.0
