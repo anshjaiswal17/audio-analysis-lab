@@ -11,7 +11,6 @@ import base64
 import os
 import tempfile
 
-
 # Load trained model
 model = joblib.load("audio_model.pkl")
 
@@ -167,7 +166,7 @@ h1 {
 
 <h1><img src="/static/speaker.gif" width="50" height="50" style="vertical-align: middle;"> Audio Analysis Lab</h1>
 
-<input type="file" id="fileInput">
+<input type="file" id="fileInput" accept=".wav">
 <br>
 <button class="btn" id="analyzeBtn" onclick="analyze()">Analyze</button>
 
@@ -280,6 +279,11 @@ def index():
 def analyze():
     try:
         file = request.files['audio']
+        
+        if not file.filename.lower().endswith('.wav'):
+            return jsonify({
+                'error': 'Only WAV files are supported on deployed version.'
+            })
 
         with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp:
             file.save(temp.name)
